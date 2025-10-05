@@ -77,9 +77,9 @@ export class WorkspaceRecommendations extends ExtensionRecommendations {
 	private async fetchWorkspaceExtensions(): Promise<URI[]> {
 		const workspaceExtensions: URI[] = [];
 		for (const workspaceFolder of this.contextService.getWorkspace().folders) {
-			const extensionsLocaiton = this.uriIdentityService.extUri.joinPath(workspaceFolder.uri, WORKSPACE_EXTENSIONS_FOLDER);
+			const extensionsLocation = this.uriIdentityService.extUri.joinPath(workspaceFolder.uri, WORKSPACE_EXTENSIONS_FOLDER);
 			try {
-				const stat = await this.fileService.resolve(extensionsLocaiton);
+				const stat = await this.fileService.resolve(extensionsLocation);
 				for (const extension of stat.children ?? []) {
 					if (!extension.isDirectory) {
 						continue;
