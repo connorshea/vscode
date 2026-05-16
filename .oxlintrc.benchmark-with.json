@@ -1,0 +1,19 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": [
+		"typescript"
+	],
+	"options": {
+		"typeAware": true
+	},
+	"categories": {},
+	"rules": {
+		"eqeqeq": "error",
+		"no-debugger": "error",
+		"no-unused-vars": "off",
+		"typescript/no-unnecessary-type-parameters": "error"
+	},
+	"env": {
+		"builtin": true
+	}
+}
