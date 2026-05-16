@@ -25,6 +25,9 @@ type-aware plugin (`oxlint-tsgolint`) on the `vscode` source tree.
     `no-redundant-type-constituents`, `no-unnecessary-type-assertion`,
     `no-unsafe-argument`, `restrict-plus-operands`,
     `restrict-template-expressions`, `require-await`
+  - `.oxlintrc.benchmark-all.json` — all 59 type-aware rules currently
+    implemented by `oxlint-tsgolint` 0.22.1 (the full list from the
+    package's README, including `no-unnecessary-type-parameters`)
 
 ## Results
 
@@ -38,6 +41,7 @@ type-aware plugin (`oxlint-tsgolint`) on the `vscode` source tree.
 | 12 type-aware rules (no `no-unnecessary-type-parameters`) | 26.51 ± 1.12 | 25.76 | 27.79 | 1.63x |
 | `no-unnecessary-type-parameters` only                | 45.20 ± 0.96 | 44.10 | 45.84 | 2.77x |
 | `await-thenable` + `no-unnecessary-type-parameters`  | 44.21 ± 0.68 | 43.69 | 44.99 | 2.71x |
+| **all 59 type-aware rules**                          | **86.61 ± 0.67** | 85.96 | 87.29 | **5.31x** |
 
 - Enabling `no-unnecessary-type-parameters` adds **~28.9 s** (≈ **2.77x slower**)
   over a run with no type-aware rules.
@@ -49,6 +53,12 @@ type-aware plugin (`oxlint-tsgolint`) on the `vscode` source tree.
 - Adding `no-unnecessary-type-parameters` on top of `await-thenable` costs
   about the same **+27 s**, so the cost is the rule itself, not tsgolint
   startup.
+- Enabling **all 59 type-aware rules** takes **86.6 s** (5.3x slower than no
+  type-aware rules; +70.3 s over the no-type-aware baseline). Averaged across
+  the 58 rules added on top of `await-thenable`, that's about **1.2 s per
+  rule**, but the cost is heavily skewed — `no-unnecessary-type-parameters`
+  alone accounts for ~28 s of those ~70 s, with the remaining 57 rules
+  averaging ~0.7 s each.
 
 ### Errors reported on `src/`
 
